@@ -7,13 +7,6 @@ const postSchema = new mongoose.Schema(
       required: true,
       max: [100000, "world limit exceed"],
     },
-
-    hashTags: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "HashTag",
-      },
-    ],
   },
 
   { timestamps: true }
