@@ -12,10 +12,4 @@ app.use("/api", apiRoutes);
 app.listen(8000, async () => {
   console.log("server started");
   await makeDatabaseConnection();
-  const userRepo = new UserRepository();
-  const postRepo = new PostRepository();
-  const posts = await postRepo.getAll(0, 10);
-  const likeService = new LikeService();
-  const response = await likeService.toggelLike(posts[0].id, "Post", "660e3608425b7bf148750c35");
-  console.log(response);
 });
