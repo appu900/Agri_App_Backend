@@ -1,9 +1,9 @@
-const Like = require("../models/like");
+const User = require("../models/user");
 const CrudRepository = require("./crud-repository");
 
-class LikeRepository extends CrudRepository {
+class UserRepository extends CrudRepository {
   constructor() {
-    super(Like);
+    super(User);
   }
 
   async findByUserAndLikeable(data) {
@@ -16,4 +16,4 @@ class LikeRepository extends CrudRepository {
   }
 }
 
-module.exports = LikeRepository;
+module.exports = UserRepository;

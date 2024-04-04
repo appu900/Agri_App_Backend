@@ -9,7 +9,9 @@ class PostService {
   //  ** purose : create a post **
   async create(data) {
     const content = data.content;
-    let tags = content.match(/#[a-zA-Z0-9]+/g); // this will return an array of tags
+    let tags = content.match(/#[a-zA-Z0-9]+/g);
+    console.log(tags) // this will return an array of tags
+    if(tags === null) return await this.PostRepository.create(data);
     tags = tags.map((tag) => tag.substring(1));
     console.log(tags);
     const post = await this.PostRepository.create(data);

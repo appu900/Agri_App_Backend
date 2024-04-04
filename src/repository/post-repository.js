@@ -44,6 +44,23 @@ class PostRepository extends CrudRepository {
       console.log(error.message);
     }
   }
+
+  async findByIdAndPopulateLikes(modelId) {
+    try {
+      const result = await Post.findById(modelId).populate("likes");
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
+  async find(id){
+    try {
+       const posts = await Post.findById(id).populate("likes");
+       return posts;
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
 }
 
 module.exports = PostRepository;

@@ -7,6 +7,12 @@ const postSchema = new mongoose.Schema(
       required: true,
       max: [100000, "world limit exceed"],
     },
+    likes: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Like",
+      },
+    ],
   },
 
   { timestamps: true }
