@@ -1,7 +1,12 @@
 const Post = require("../models/Post");
+const CrudRepository = require("./crud-repository");
 
-class PostRepository {
-  async createPost(data) {
+class PostRepository extends CrudRepository {
+  constructor() {
+    super(Post);
+  }
+
+  async create(data) {
     try {
       const post = await Post.create(data);
       return post;
@@ -10,16 +15,7 @@ class PostRepository {
     }
   }
 
-   async get(id) {
-    try {
-      const post = await Post.findById(id);
-      return post;
-    } catch (error) {
-      console.log(error.message);
-    }
-  } 
-
-   async update(id, data) {
+  async update(id, data) {
     try {
       const post = await Post.findByIdAndUpdate(id, data, { new: true });
       return post;
@@ -28,16 +24,7 @@ class PostRepository {
     }
   }
 
-   async destroy(id) {
-    try {
-      const post = await Post.findByIdAndDelete(id);
-      return post;
-    } catch (error) {
-      console.log(error.message);
-    }
-  }
-
-   async getPostWithComments(id) {
+  async getPostWithComments(id) {
     try {
       const postWithComments = await Post.findById(id)
         .populate("comments")
@@ -49,7 +36,7 @@ class PostRepository {
   }
 
   // ** pagination with offset and limit **
-   async getAll(offset, limit) {
+  async getAll(offset, limit) {
     try {
       const posts = await Post.find().skip(offset).limit(limit);
       return posts;

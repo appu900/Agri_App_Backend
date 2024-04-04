@@ -12,7 +12,7 @@ class PostService {
     let tags = content.match(/#[a-zA-Z0-9]+/g); // this will return an array of tags
     tags = tags.map((tag) => tag.substring(1));
     console.log(tags);
-    const post = await this.PostRepository.createPost(data);
+    const post = await this.PostRepository.create(data);
     /*
      1.bulkcreate in mongoose 
      2.filter out of hashtag based on multiple tags
