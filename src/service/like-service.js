@@ -13,7 +13,7 @@ class LikeService {
   async toggelLike(modelId, modelType, userId) {
     if (modelType === "Post" || modelType === "post") {
       var likeable = await this.PostRepository.find(modelId);
-      console.log("this is likeble", likeable);
+      console.log("this is likeble", likeable);  
     } else if (modelType === "Comment") {
       //   var likeable = this.CommentRepository.get(modelId);
     } else {
@@ -44,7 +44,7 @@ class LikeService {
       });
       likeable.likes.push(newLike);
       await likeable.save();
-      var isAdded = true;
+      var isAdded = true;  
     }
 
     return isAdded;
