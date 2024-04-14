@@ -1,9 +1,10 @@
-const { LikeRepository, PostRepository } = require("../repository/index");
+const { LikeRepository, PostRepository, CommentRepository } = require("../repository/index");
 
 class LikeService {
   constructor() {
     this.likeRepository = new LikeRepository();
     this.PostRepository = new PostRepository();
+    this.CommentRepository = new CommentRepository();
   }
 
   // /api/v1/like/toggle?id=modelid&type=PostorComment
@@ -16,6 +17,9 @@ class LikeService {
       console.log("this is likeble", likeable);  
     } else if (modelType === "Comment") {
       //   var likeable = this.CommentRepository.get(modelId);
+      var likeable = await this.CommentRepository.get(modelId);
+      console.log("this is likeable comment", likeable);
+    
     } else {
       throw new Error("Invalid model type");
     }

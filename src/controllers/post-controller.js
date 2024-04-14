@@ -22,6 +22,28 @@ class PostController {
       });
     }
   }
+
+  // get all posts
+
+  static async getAPost(request, response) {
+    try {
+      const res = await postService.get(request.params.id);
+      console.log(res);
+      return response.status(200).json({
+        success: true,
+        message: "Successfully fetched all posts",
+        data: res,
+        err: {},
+      });
+    } catch (error) {
+      return response.status(500).json({
+        success: false,
+        message: "Internal server error",
+        data: {},
+        err: error.message,
+      });
+    }
+  }
 }
 
 module.exports = PostController;

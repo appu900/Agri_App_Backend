@@ -10,8 +10,8 @@ class PostService {
   async create(data) {
     const content = data.content;
     let tags = content.match(/#[a-zA-Z0-9]+/g);
-    console.log(tags) // this will return an array of tags
-    if(tags === null) return await this.PostRepository.create(data);
+    console.log(tags); // this will return an array of tags
+    if (tags === null) return await this.PostRepository.create(data);
     tags = tags.map((tag) => tag.substring(1));
     console.log(tags);
     const post = await this.PostRepository.create(data);
@@ -21,18 +21,21 @@ class PostService {
      3.how to add a post id inside all the hashTags
     */
     let alReadyPresentTags = await this.HashTagRepository.findByName(tags);
-    let titleOfPresentTags = alReadyPresentTags.map((tag) => tag.title)
+    let titleOfPresentTags = alReadyPresentTags.map((tag) => tag.title);
     let newTags = tags.filter((tag) => !alReadyPresentTags.includes(tag));
     newTags = newTags.map((tag) => ({ title: tag, posts: [post._id] }));
     const response = await this.HashTagRepository.bulkCreate(newTags);
-    alReadyPresentTags.forEach((tag)=>{
-        tag.posts.push(post.id);
-        tag.save();
-    })
+    alReadyPresentTags.forEach((tag) => {
+      tag.posts.push(post.id);
+      tag.save();
+    });
     return post;
   }
 
-
+  async get(postId) {
+    const post = await this.PostRepository.getPostWithComments(postId);
+    return post;
+  }
 }
 
 module.exports = PostService;

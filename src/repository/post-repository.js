@@ -27,7 +27,12 @@ class PostRepository extends CrudRepository {
   async getPostWithComments(id) {
     try {
       const postWithComments = await Post.findById(id)
-        .populate("comments")
+        .populate({
+          path: "comments",
+          populate:{
+            path:'comments'
+          }
+        })
         .lean();
       return postWithComments;
     } catch (error) {
