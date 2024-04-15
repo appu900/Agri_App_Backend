@@ -69,3 +69,7 @@ class PostRepository extends CrudRepository {
 }
 
 module.exports = PostRepository;
+
+
+
+
