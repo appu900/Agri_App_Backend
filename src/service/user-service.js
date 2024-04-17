@@ -9,8 +9,15 @@ class UserService {
     const user = this.userRepository.create(data);
     return user;
   }
+
+  async getUserByEmail(email) {
+    try {
+      const user = await this.userRepository.findBy({ email: email });
+      return user;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 module.exports = UserService;
-
-

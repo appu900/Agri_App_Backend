@@ -28,6 +28,42 @@ class AuthController {
       });
     }
   }
+
+  static async login(request, response) {
+    try {
+      const user = await userService.getUserByEmail(request.body.email);
+      if (!user) {
+        return response.status(404).json({
+          success: false,
+          data: {},
+          error: {},
+          message: "user not found",
+        });
+      }
+      if (!user.comparePassword(request.body.password)) {
+        return response.status(401).json({
+          success: false,
+          data: {},
+          error: {},
+          message: "password is incorrect",
+        });
+      }
+      const token = user.generateJwt();
+      return response.status(200).json({
+        success: true,
+        data: token,
+        error: {},
+        message: "user logged in successfully",
+      });
+    } catch (error) {
+      return response.status(500).json({
+        success: false,
+        data: {},
+        error: error,
+        message: "something went wrong",
+      });
+    }
+  }
 }
 
 module.exports = AuthController;
